@@ -13,6 +13,8 @@ from datetime import datetime
 from fpdf import FPDF
 from io import BytesIO
 import base64
+import os
+import gdown
 
 def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
@@ -69,12 +71,24 @@ def local_css(file_name):
 local_css("style.css")   # css
 
 # Load trained model
+MODEL_PATH = "final_densenet169_progressive_focal.keras"
+MODEL_ID = "19xzudoFCo1fWvhqixTjqE-qGXyXZyNyw"
+
 @st.cache_resource
 def load_model():
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("Loading VisionCare AI model..."):
+            gdown.download(
+                id=MODEL_ID,
+                output=MODEL_PATH,
+                quiet=False
+            )
+
     model = tf.keras.models.load_model(
-        "final_densenet169_progressive_focal.keras",  
+        MODEL_PATH,
         compile=False
     )
+
     return model
 
 model = load_model()

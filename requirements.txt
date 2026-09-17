@@ -7,3 +7,4 @@ tf-keras-vis
 scikit-image
 Pillow
 fpdf2
+gdown
