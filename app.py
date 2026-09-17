@@ -123,11 +123,17 @@ def is_likely_retina(img):
     # 5. Existing Straight Line Check (for Buttons)
     lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=40, minLineLength=40, maxLineGap=10)
     straight_lines = 0
+    straight_lines = 0
+
     if lines is not None:
         for line in lines:
-            x1, y1, x2, y2 = line[0]
-            if abs(x1 - x2) < 2 or abs(y1 - y2) < 2:
-                straight_lines += 1
+            coords = np.asarray(line).reshape(-1)
+
+            if len(coords) >= 4:
+                x1, y1, x2, y2 = coords[:4]
+
+                if abs(x1 - x2) < 2 or abs(y1 - y2) < 2:
+                    straight_lines += 1
     if straight_lines > 12:
         return False 
 
