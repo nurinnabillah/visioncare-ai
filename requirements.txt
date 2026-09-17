@@ -1,0 +1,9 @@
+streamlit
+tensorflow
+numpy
+opencv-python-headless
+matplotlib
+tf-keras-vis
+scikit-image
+Pillow
+fpdf2
