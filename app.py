@@ -453,7 +453,7 @@ def generate_pdf(prediction, confidence, history, gradcam_path=None):
         "must not be considered a medical diagnosis."
     )
 
-    return pdf.output(dest="S").encode("latin-1")
+    return bytes(pdf.output(dest="S"))
 
 # -------- Sidebar Navigation -----------------
 home_icon = get_base64_image("images/home.png")
